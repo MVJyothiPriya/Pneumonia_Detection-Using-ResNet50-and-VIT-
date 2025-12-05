@@ -62,4 +62,49 @@ To improve model generalization and handle class imbalance:
 | Model | Accuracy | Normal Recall | Pneumonia Recall |
 | :--- | :---: | :---: | :---: |
 | **ResNet-50** | 0.80 | 0.48 | 0.99 |
-| **ViT-B/16** | 0.81 | 0.51 | 0.99
+| **ViT-B/16** | 0.81 | 0.51 | 0.99 |
+
+### ⚖️ Balanced Training Results
+*After applying `WeightedRandomSampler`:*
+
+| Model | Accuracy | Normal Recall | Pneumonia Recall |
+| :--- | :---: | :---: | :---: |
+| **ResNet-50** | 0.85 | 0.61 | 0.99 |
+| **ViT-B/16** | **0.91** | **0.79** | **0.98** |
+
+**Observation:** ViT shows far more balanced results, specifically improving performance on NORMAL cases.
+
+### 🎯 Final Fine-Tuned ViT Results (Best Model)
+**Overall Accuracy:** 0.92
+
+| Class | Precision | Recall | F1-Score |
+| :--- | :---: | :---: | :---: |
+| **Normal** | 0.96 | 0.82 | 0.89 |
+| **Pneumonia** | 0.90 | 0.98 | 0.94 |
+
+## 📌 Explainability
+
+### 🔍 Grad-CAM (ResNet-50)
+* Heatmaps focus on small, localized regions.
+* **Issue:** Often misinterprets normal shadows as pneumonia.
+* *Example:* In a TRUE-NORMAL image, ResNet activated a left-lung shadow and predicted pneumonia.
+
+### 🔍 ViT Attention Maps
+* Uses distributed patch-based attention across lung fields.
+* More global and stable features.
+* **Result:** Correctly identified the same challenging case as NORMAL.
+
+## 📉 Limitations
+* **Validation Set:** Very small (only 16 images).
+* **Demographics:** Dataset is pediatric; results may not generalize to adults.
+* **Output:** Only binary classification (Pneumonia vs Normal).
+* **Calibration:** No probability calibration implemented.
+* **Tuning:** Limited hyperparameter tuning due to compute constraints.
+
+## 🚀 Future Work
+* Implement multi-class pneumonia classification (Viral vs Bacterial).
+* Extend architecture to 3D CT Scan models.
+* Deploy as a mobile/web screening tool.
+* Improve explainability (e.g., using Attention Rollout).
+
+## 🏗️ Repository Structure
