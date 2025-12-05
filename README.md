@@ -2,9 +2,7 @@
 
 ### Performance Analysis of CNN (ResNet-50) and Vision Transformer (ViT-B/16)
 
-**University of Florida**
 
----
 
 ## Overview
 This project analyzes how deep learning models can detect pneumonia from chest X-ray images. We evaluated and compared two state-of-the-art architectures:
